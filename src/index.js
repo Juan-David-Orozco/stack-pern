@@ -1,24 +1,28 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-const router = require("./routes/tasks.routes");
+
+//Enrutadores
+const rutasUsers = require('./routes/users')
+const rutasProducts = require('./routes/products')
 
 const app = express();
 
+// settings
 app.use(cors())
 app.use(morgan("dev"));
 app.use(express.json());
 
-// Routes
-app.use(router)
+// routes
+app.use('/products', rutasProducts);
+app.use('/users', rutasUsers);
 
-// handling errors
-app.use((err, req, res, next) => {
-  return res.status(500).json({
-    status: "error",
-    message: err.message,
-  });
-});
+// ruta inicial
+app.get('/', (req, res) => {
+  res.send("Bienvenido al Servidor")
+})
 
-app.listen(5000);
-console.log("Server on port 5000");
+// conexión servidor
+app.listen(9000, function(){
+  console.log("Servidor iniciado port 9000");
+})
