@@ -24,7 +24,29 @@ function App() {
   }
 
   const updateCarroCompra = (product) => {
-    setCarroCompra([...carroCompra, product])
+    const productValid = validarProducto(product)
+    if(productValid)
+      setCarroCompra([...carroCompra, product])
+  }
+
+  const validarProducto = (product) => {
+    if (carroCompra.length == 0)
+      return true
+    const productoValido = carroCompra.find((compra) => {
+      return compra.id == product.id
+    })
+    if(productoValido){
+      console.log("El producto ya se agrego al carro de compras")
+      return false
+    }else{
+      console.log("El producto agregado al carro de compras")
+      return true
+    }
+    console.log(productoValido)
+  }
+
+  const deleteCarroCompra = (product) => {
+    setCarroCompra(carroCompra.filter((compra) => compra.id !== product.id))
   }
 
   return (
@@ -44,7 +66,9 @@ function App() {
           />
           <Route
             path="/carro"
-            element={<CarroCompra carroCompra={carroCompra}/>}
+            element={<CarroCompra 
+              carroCompra={carroCompra}
+              deleteCarroCompra={deleteCarroCompra} />}
           />
         </Routes>
       </div>

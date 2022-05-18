@@ -2,8 +2,12 @@ import { useState } from "react";
 
 export default function CarroCompra(props) {
 
-  const [carroCompra, SetCarroCompra] = useState(props.carroCompra)
+  const [carroCompra, setCarroCompra] = useState(props.carroCompra)
 
+  const eliminarCompra = (product) => {
+    setCarroCompra(carroCompra.filter((compra) => compra.id !== product.id))
+    props.deleteCarroCompra(product)
+  }
 
   return (
     <>
@@ -22,7 +26,10 @@ export default function CarroCompra(props) {
                   <td scope="row"> {compra.titulo} </td>
                   <td>
                     <img src={compra.contenido} alt={compra.contenido} />
-                    <a class="btn btn-danger btn-sm mx-3" href="#">
+                    <a
+                      className="btn btn-danger btn-sm mx-3"
+                      onClick={() => eliminarCompra(compra)}
+                    >
                       Eliminar
                     </a>
                   </td>
