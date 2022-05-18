@@ -9,6 +9,7 @@ import CarroCompra from './components/CarroCompra'
 
 function App() {
 
+  const [carroCompra, setCarroCompra] = useState([]);
   const [ingreso, SetIngreso] = useState(false)
   const [user, setUser] = useState({id: "", email: "", password: ""})
 
@@ -22,6 +23,10 @@ function App() {
     console.log('Cambio usuario: '+ JSON.stringify(user))
   }
 
+  const updateCarroCompra = (product) => {
+    setCarroCompra([...carroCompra, product])
+  }
+
   return (
     <BrowserRouter>
       <Navigation/>
@@ -29,7 +34,8 @@ function App() {
         <Routes>
           <Route
             index path="/"
-            element={<ProductsList ingreso={ingreso} user={user}/>}
+            element={<ProductsList ingreso={ingreso} user={user}
+              updateCarroCompra={updateCarroCompra} />}
           />
           <Route
             path="/login"
@@ -38,7 +44,7 @@ function App() {
           />
           <Route
             path="/carro"
-            element={<CarroCompra />}
+            element={<CarroCompra carroCompra={carroCompra}/>}
           />
         </Routes>
       </div>
