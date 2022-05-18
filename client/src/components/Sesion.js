@@ -6,7 +6,7 @@ export default function Sesion(props) {
 
   const [users, setUsers] = useState([])
   const [ingreso, SetIngreso] = useState(props.ingreso)
-  const [user, setUser] = useState({email: "", password: ""})
+  const [user, setUser] = useState(props.user)
 
   const loadUsers = async () => {
     const response = await fetch("http://localhost:9000/users");
@@ -18,14 +18,18 @@ export default function Sesion(props) {
     loadUsers();
   }, []);
 
-  const validarIngreso = () => {
+  const validarIngreso = (usuario) => {
+    setUser(usuario)
     SetIngreso(true)
     props.updateIngreso(true)
+    props.updateUser(usuario)
   }
 
   const salir = () => {
+    setUser({id: "", email: "", password: ""})
     SetIngreso(false)
     props.updateIngreso(false)
+    props.updateUser({id: "", email: "", password: ""})
   }
 
   const handleSubmit = (e) => {
@@ -37,9 +41,7 @@ export default function Sesion(props) {
     const valido = validarCredenciales(email, pass)
     console.log(valido)
     if(valido){
-      setUser({email: valido.email, password: valido.password})
-      console.log(user)
-      validarIngreso()
+      validarIngreso(valido)
     }
   }
 

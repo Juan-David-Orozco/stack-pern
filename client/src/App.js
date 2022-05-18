@@ -10,10 +10,16 @@ import CarroCompra from './components/CarroCompra'
 function App() {
 
   const [ingreso, SetIngreso] = useState(false)
+  const [user, setUser] = useState({id: "", email: "", password: ""})
 
   const updateIngreso = (ingresoState) => {
     SetIngreso(ingresoState)
     console.log('Cambio estado: '+ingresoState)
+  }
+
+  const updateUser = (user) => {
+    setUser(user)
+    console.log('Cambio usuario: '+user)
   }
 
   return (
@@ -27,7 +33,8 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Sesion ingreso={ingreso} updateIngreso={updateIngreso}/>}
+            element={<Sesion ingreso={ingreso} user={user}
+              updateIngreso={updateIngreso} updateUser={updateUser} />}
           />
           <Route
             path="/carro"
