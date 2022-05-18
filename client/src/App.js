@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
+//import '../node_modules/font-awesome/css/font-awesome.css'
 
 import Navigation from "./components/Navigation";
 import ProductsList from './components/ProductsList'
@@ -25,8 +26,11 @@ function App() {
 
   const updateCarroCompra = (product) => {
     const productValid = validarProducto(product)
-    if(productValid)
+    if(productValid){
       setCarroCompra([...carroCompra, product])
+      alert("Producto agregado al carro de compra")
+    }
+    else alert("El producto ya se habia agregado al carro de compra")
   }
 
   const validarProducto = (product) => {
@@ -39,14 +43,17 @@ function App() {
       console.log("El producto ya se agrego al carro de compras")
       return false
     }else{
-      console.log("El producto agregado al carro de compras")
+      console.log("Producto agregado al carro de compras")
       return true
     }
-    console.log(productoValido)
   }
 
   const deleteCarroCompra = (product) => {
     setCarroCompra(carroCompra.filter((compra) => compra.id !== product.id))
+  }
+
+  const salirSistema = () => {
+    setCarroCompra([])
   }
 
   return (
@@ -62,11 +69,12 @@ function App() {
           <Route
             path="/login"
             element={<Sesion ingreso={ingreso} user={user}
+              salirSistema={salirSistema}
               updateIngreso={updateIngreso} updateUser={updateUser} />}
           />
           <Route
             path="/carro"
-            element={<CarroCompra 
+            element={<CarroCompra user={user}
               carroCompra={carroCompra}
               deleteCarroCompra={deleteCarroCompra} />}
           />

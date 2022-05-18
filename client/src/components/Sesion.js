@@ -30,6 +30,7 @@ export default function Sesion(props) {
     SetIngreso(false)
     props.updateIngreso(false)
     props.updateUser({id: "", email: "", password: ""})
+    props.salirSistema()
   }
 
   const handleSubmit = (e) => {
