@@ -5,6 +5,7 @@ const cors = require("cors");
 //Enrutadores
 const rutasUsers = require('./routes/users')
 const rutasProducts = require('./routes/products')
+const rutasCarro = require('./routes/carro')
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // routes
 app.use('/products', rutasProducts);
 app.use('/users', rutasUsers);
+app.use('/carro', rutasCarro);
 
 // ruta inicial
 app.get('/', (req, res) => {

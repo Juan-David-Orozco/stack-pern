@@ -19,7 +19,7 @@ function App() {
 
   const updateUser = (user) => {
     setUser(user)
-    console.log('Cambio usuario: '+user)
+    console.log('Cambio usuario: '+ JSON.stringify(user))
   }
 
   return (
@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route
             index path="/"
-            element={<ProductsList ingreso={ingreso} />}
+            element={<ProductsList ingreso={ingreso} user={user}/>}
           />
           <Route
             path="/login"
